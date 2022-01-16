@@ -1,0 +1,178 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: openebs
+spec:
+  releaseName: openebs
+  chart:
+    spec:
+      chart: openebs
+      sourceRef:
+        kind: HelmRepository
+        name: openebs
+        namespace: flux-system
+      version: '>=3.0.6'
+  interval: 5m
+  install:
+    remediation:
+      retries: 3
+  values:
+    rbac:
+      create: true
+      pspEnabled: false
+      kyvernoEnabled: false # `true` if Kyverno Policy resources should be created
+    serviceAccount:
+      create: true
+      name:
+    imagePullSecrets: []
+    release:
+      version: "3.1.0" # "openebs.io/version" label for control plane components
+    legacy:
+      enabled: false
+    image:
+      pullPolicy: IfNotPresent
+      repository: ""
+    apiserver:
+      enabled: true
+      image: openebs/m-apiserver
+      imageTag: "2.12.2"
+      replicas: 1
+      ports:
+        externalPort: 5656
+        internalPort: 5656
+      sparse:
+        enabled: "false"
+    defaultStorageConfig:
+      enabled: "true"
+    # Directory used by the OpenEBS to store debug information and so forth
+    # that are generated in the course of running OpenEBS containers.
+    varDirectoryPath:
+      baseDir: /var/openebs
+    provisioner:
+      enabled: true
+      image: openebs/openebs-k8s-provisioner
+      imageTag: "2.12.2"
+      replicas: 1
+      enableLeaderElection: true
+      patchJivaNodeAffinity: enabled
+    localprovisioner:
+      enabled: true
+      image: openebs/provisioner-localpv
+      imageTag: "3.1.0"
+      replicas: 1
+      enableLeaderElection: true
+      enableDeviceClass: true
+      enableHostpathClass: true
+      basePath: /var/openebs/local
+      # This sets the number of times the provisioner should try
+      # with a polling interval of 5 seconds, to get the Blockdevice
+      # Name from a BlockDeviceClaim, before the BlockDeviceClaim
+      # is deleted. E.g. 12 * 5 seconds = 60 seconds timeout
+      waitForBDBindTimeoutRetryCount: "12"
+    snapshotOperator:
+      enabled: true
+      controller:
+        image: openebs/snapshot-controller
+        imageTag: "2.12.2"
+      provisioner:
+        image: openebs/snapshot-provisioner
+        imageTag: "2.12.2"
+      replicas: 1
+      enableLeaderElection: true
+      upgradeStrategy: "Recreate"
+    ndm:
+      enabled: true
+      image: openebs/node-disk-manager
+      imageTag: "1.8.0"
+      sparse:
+        path: /var/openebs/sparse
+        size: "10737418240"
+        count: "0"
+      filters:
+        enableOsDiskExcludeFilter: true
+        osDiskExcludePaths: /,/etc/hosts,/boot
+        enableVendorFilter: true
+        excludeVendors: CLOUDBYT,OpenEBS
+        enablePathFilter: true
+        includePaths: ""
+        excludePaths: /dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd
+      probes:
+        enableSeachest: false
+    ndmOperator:
+      enabled: true
+      image: openebs/node-disk-operator
+      imageTag: "1.8.0"
+      replicas: 1
+      upgradeStrategy: Recreate
+    ndmExporter:
+      enabled: false
+      image:
+        registry:
+        repository: openebs/node-disk-exporter
+        pullPolicy: IfNotPresent
+        tag: 1.8.0 # Overrides the image tag whose default is the chart appVersion.
+      nodeExporter:
+        name: ndm-node-exporter
+        podLabels:
+          name: openebs-ndm-node-exporter
+        metricsPort: 9101
+      clusterExporter:
+        name: ndm-cluster-exporter
+        podLabels:
+          name: openebs-ndm-cluster-exporter
+        metricsPort: 9100
+    webhook:
+      enabled: true
+      image: openebs/admission-server
+      imageTag: "2.12.2"
+      failurePolicy: Fail
+      replicas: 1
+      hostNetwork: false
+    helper:
+      image: openebs/linux-utils
+      imageTag: "3.1.0"
+    featureGates:
+      enabled: true
+      GPTBasedUUID:
+        enabled: true
+        featureGateFlag: GPTBasedUUID
+      APIService:
+        enabled: false
+        featureGateFlag: APIService
+        address: "0.0.0.0:9115"
+      UseOSDisk:
+        enabled: false
+        featureGateFlag: UseOSDisk
+      ChangeDetection:
+        enabled: false
+        featureGateFlag: "ChangeDetection"
+    crd:
+      enableInstall: true
+    policies:
+      monitoring:
+        enabled: true
+        image: openebs/m-exporter
+        imageTag: "2.12.2"
+    analytics:
+      enabled: true
+      pingInterval: 24h # Specify in hours the duration after which a ping event needs to be sent.
+    jiva:
+      enabled: false
+    cstor:
+      pool:
+        image: openebs/cstor-pool
+        imageTag: "3.1.0"
+      poolMgmt:
+        image: openebs/cstor-pool-mgmt
+        imageTag: "2.12.2"
+      target:
+        image: openebs/cstor-istgt
+        imageTag: "3.1.0"
+      volumeMgmt:
+        image: openebs/cstor-volume-mgmt
+        imageTag: "2.12.2"
+      enabled: true
+      openebsNDM:
+        enabled: false
+      rbac:
+        create: true
