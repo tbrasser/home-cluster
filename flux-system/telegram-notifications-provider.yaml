@@ -1,0 +1,10 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta1
+kind: Provider
+metadata:
+  name: telegram
+  namespace: flux-system
+spec:
+  type: telegram
+  channel: "-489992479" # @channelname or "-1557265138" (channel id)
+  secretRef:
+    name: telegram-token
