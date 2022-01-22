@@ -8,7 +8,7 @@ spec:
         kubernetes.io/hostname: "node-1"
       dataRaidGroups:
         - blockDevices:
-            - blockDeviceName: "blockdevice-cfe46b4dc251ab53124995f757a2e1ea"  # 500GB HDD node-1
+            - blockDeviceName: "blockdevice-2f01829c185d0181dfd0b26e9a56ef4f"  # 500GB HDD node-1
           # - blockDeviceName: "blockdevice-efaf052576b8046630ae798a9ab3def8"  #   8TB HDD node-1
       poolConfig:
         dataRaidGroupType: "stripe"
