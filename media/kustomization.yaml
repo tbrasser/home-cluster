@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: media
 resources:
   - namespace.yaml
-  - media-rwx-pvc.yaml
+# - media-rwx-pvc.yaml
   - jellyfin.yaml
   - radarr.yaml
