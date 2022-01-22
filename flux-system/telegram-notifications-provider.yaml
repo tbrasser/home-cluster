@@ -22,5 +22,9 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
-    - kind: Kustomization
+    - kind: HelmRelease
       name: '*'
+      namespace: media
+    - kind: HelmRelease
+      name: '*'
+      namespace: storage
