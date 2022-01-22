@@ -38,12 +38,25 @@ spec:
         enabled: false
     persistence:
       config:
-        enabled: false
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        mountPath: /config
+        storageClass: harddrive-disk
+        retain: true
       cache: # Cache does NOT contain temporary transcoding data.
-        enabled: false
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 20Gi
         mountPath: /cache
+        storageClass: harddrive-disk
+        retain: true
       media:
-        enabled: false
+        enabled: true
+        type: pvc
+        existingClaim: media-storage
         mountPath: /media
     podSecurityContext:
       runAsUser: 568
