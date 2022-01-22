@@ -1,0 +1,30 @@
+apiVersion: cstor.openebs.io/v1
+kind: CStorPoolCluster
+metadata:
+ name: harddrive-disk-pool
+spec:
+  pools:
+    - nodeSelector:
+        kubernetes.io/hostname: "node-1"
+      dataRaidGroups:
+        - blockDevices:
+            - blockDeviceName: "blockdevice-cfe46b4dc251ab53124995f757a2e1ea"  # 500GB HDD node-1
+          # - blockDeviceName: "blockdevice-efaf052576b8046630ae798a9ab3def8"  #   8TB HDD node-1
+      poolConfig:
+        dataRaidGroupType: "stripe"
+    - nodeSelector:
+        kubernetes.io/hostname: "node-2"
+      dataRaidGroups:
+        - blockDevices:
+            - blockDeviceName: "blockdevice-f6fc0efa8c44787298dd7d7d9e6e6bcc"  # 500GB HDD node-2
+          # - blockDeviceName: "blockdevice-94b380b1084afc10e0a9ef4074c3cf28"  #   1TB HDD node-2
+      poolConfig:
+        dataRaidGroupType: "stripe"
+    - nodeSelector:
+        kubernetes.io/hostname: "node-3"
+      dataRaidGroups:
+        - blockDevices:
+            - blockDeviceName: "blockdevice-e33c794ba1c0115a2d04f7deb2d500ea"  # 500GB HDD node-3
+          # - blockDeviceName: "blockdevice-7668a6c0f103ed7d99b9a420529d3f7b"  # 500GB HDD node-3
+      poolConfig:
+        dataRaidGroupType: "stripe"

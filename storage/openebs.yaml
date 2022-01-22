@@ -154,11 +154,12 @@ spec:
         image: openebs/m-exporter
         imageTag: "2.12.2"
     analytics:
-      enabled: true
+      enabled: false
       pingInterval: 24h # Specify in hours the duration after which a ping event needs to be sent.
     jiva:
       enabled: false
     cstor:
+      enabled: true
       pool:
         image: openebs/cstor-pool
         imageTag: "3.1.0"
@@ -171,8 +172,61 @@ spec:
       volumeMgmt:
         image: openebs/cstor-volume-mgmt
         imageTag: "2.12.2"
-      enabled: true
       openebsNDM:
         enabled: false
       rbac:
         create: true
+    nfs-provisioner:
+      enabled: true
+      nfsProvisioner:
+        image:
+          registry:
+          repository: openebs/provisioner-nfs
+          tag: 0.9.0
+          pullPolicy: IfNotPresent
+        enableLeaderElection: "true"
+        nfsServerAlpineImage:
+          registry:
+          repository: openebs/nfs-server-alpine
+          tag: 0.9.0
+        nfsStorageClass:
+          name: harddrive-nfs
+          reclaimPolicy: Retain
+          nfsServerType: kernel
+          isDefaultClass: false
+          backendStorageClass: harddrive-disk
+          leaseTime: # leaseTime defines the renewal period(in seconds) for client state
+          graceTime: # graceTime defines the recovery period(in seconds) to reclaim locks setting graceTime and leaseTime lower will reduce the io pause time during nfs server restart
+          # filePermissions defines the file ownership and mode specifications
+          # for the NFS server's shared filesystem volume.
+          # File permission changes are applied recursively if the root of the
+          # volume's filesystem does not match the specified value.
+          # For more information: https://github.com/openebs/dynamic-nfs-provisioner/blob/develop/docs/tutorial/file-permissions.md
+          filePermissions: {}
+          # The UID value is used to set the user-owner of NFS shared directory. Only valid
+          # UIDs are accepted.
+          # The ownership change is carried out recursively down the directory tree.
+          #  UID: ""
+          # The GID value is used to set the group-owner of NFS shared directory. Only valid
+          # GIDs are accepted.
+          # The ownership change is carried out recursively down the directory tree.
+          #  GID: ""
+          # The mode value is used to set the file mode of NFS shared directory. Both octals (e.g. 0744)
+          # and incremental/decremental (e.g. "u+r", "o+rw") values are accepted.
+          # The file mode change is carried out recursively down the directory tree.
+          #  mode: ""
+
+          # Usually, below request and limits are good enough for NFS Server to work
+          # seamlessly(IOs will be taken care by kerner space process i.e nfsd).
+          nfsServerResources:
+            requests:
+              memory: 50Mi
+              cpu: 50m
+            limits:
+              memory: 100Mi
+              cpu: 100m
+        nfsServer:
+          useClusterIP: "true"
+          imagePullSecret: ""
+        analytics:
+          enabled: "false"
