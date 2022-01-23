@@ -54,7 +54,7 @@ spec:
         storageClass: harddrive-disk
         retain: true
       media:
-        enabled: true
+        enabled: false
         type: pvc
         existingClaim: media-storage
         mountPath: /media
