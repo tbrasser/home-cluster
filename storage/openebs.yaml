@@ -160,6 +160,8 @@ spec:
       enabled: false
     cstor:
       enabled: true
+      csiNode:
+        kubeletDir: "/var/snap/microk8s/common/var/lib/kubelet/"
       pool:
         image: openebs/cstor-pool
         imageTag: "3.1.0"
