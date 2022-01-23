@@ -59,8 +59,8 @@ spec:
         existingClaim: media-storage
         mountPath: /media
     podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
+      # runAsUser: 568
+      # runAsGroup: 568
       # fsGroup: 65534
       supplementalGroups:
       - 44
