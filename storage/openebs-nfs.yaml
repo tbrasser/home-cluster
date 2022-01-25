@@ -6,7 +6,7 @@ spec:
   releaseName: openebs-nfs
   chart:
     spec:
-      chart: openebs-nfs
+      chart: nfs-provisioner
       sourceRef:
         kind: HelmRepository
         name: openebs-nfs
