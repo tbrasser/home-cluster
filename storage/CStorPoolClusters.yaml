@@ -8,15 +8,15 @@ spec:
         kubernetes.io/hostname: "node-1"
       dataRaidGroups:
         - blockDevices:
-            - blockDeviceName: "blockdevice-2f01829c185d0181dfd0b26e9a56ef4f"  # 500GB HDD node-1
+            - blockDeviceName: "blockdevice-94b380b1084afc10e0a9ef4074c3cf28"  #   1TB HDD node-1
       poolConfig:
         dataRaidGroupType: "stripe"
     - nodeSelector:
         kubernetes.io/hostname: "node-2"
       dataRaidGroups:
         - blockDevices:
+            - blockDeviceName: "blockdevice-2f01829c185d0181dfd0b26e9a56ef4f"  # 500GB HDD node-2
             - blockDeviceName: "blockdevice-f6fc0efa8c44787298dd7d7d9e6e6bcc"  # 500GB HDD node-2
-          # - blockDeviceName: "blockdevice-94b380b1084afc10e0a9ef4074c3cf28"  #   1TB HDD node-2
       poolConfig:
         dataRaidGroupType: "stripe"
     - nodeSelector:
@@ -24,7 +24,7 @@ spec:
       dataRaidGroups:
         - blockDevices:
             - blockDeviceName: "blockdevice-e33c794ba1c0115a2d04f7deb2d500ea"  # 500GB HDD node-3
-          # - blockDeviceName: "blockdevice-7668a6c0f103ed7d99b9a420529d3f7b"  # 500GB HDD node-3
+            - blockDeviceName: "blockdevice-7668a6c0f103ed7d99b9a420529d3f7b"  # 500GB HDD node-3
       poolConfig:
         dataRaidGroupType: "stripe"
 ---
@@ -40,4 +40,4 @@ spec:
         - blockDevices:
           - blockDeviceName: "blockdevice-cef1654ef775fd609a9172d212454706"  #   8TB HDD node-1
       poolConfig:
-        dataRaidGroupType: "stripe"
+        dataRaidGroupType: "stripe"  

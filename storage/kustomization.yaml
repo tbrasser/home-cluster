@@ -5,5 +5,5 @@ resources:
   - namespace.yaml
   - openebs.yaml
   - openebs-nfs.yaml
-  # - CStorPoolClusters.yaml
-  # - StorageClasses.yaml
+  - CStorPoolClusters.yaml
+  - StorageClasses.yaml
