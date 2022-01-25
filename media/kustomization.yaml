@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: media
 resources:
   - namespace.yaml
-#  - PersistentVolumeClaims.yaml
-#  - jellyfin.yaml
-#  - radarr.yaml
+  # - PersistentVolumeClaims.yaml
+  # - jellyfin.yaml
+  # - radarr.yaml
