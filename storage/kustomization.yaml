@@ -4,5 +4,6 @@ namespace: storage
 resources:
   - namespace.yaml
   - openebs.yaml
-  - harddrive-cspc.yaml
-  - harddrive-sc.yaml
+  - openebs-nfs.yaml
+  - CStorPoolClusters.yaml
+  - StorageClasses.yaml

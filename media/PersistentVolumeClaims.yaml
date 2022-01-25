@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -5,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: harddrive-nfs
+  storageClassName: harddrive-nfs-unsafe
   resources:
     requests:
-      storage: 256Gi
+      storage: 4Ti
