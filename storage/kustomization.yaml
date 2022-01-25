@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: storage
 resources:
   - namespace.yaml
-  - openebs.yaml
-  - openebs-nfs.yaml
-  - CStorPoolClusters.yaml
-  - StorageClasses.yaml
+  # - openebs.yaml
+  # - openebs-nfs.yaml
+  # - CStorPoolClusters.yaml
+  # - StorageClasses.yaml
