@@ -17,8 +17,6 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: harddrive-disk-unsafe
-  labels:
-    "storageclass.kubernetes.io/is-default-class": "false"
 provisioner: cstor.csi.openebs.io
 allowVolumeExpansion: true
 volumeBindingMode: WaitForFirstConsumer

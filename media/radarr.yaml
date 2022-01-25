@@ -31,7 +31,9 @@ spec:
       config:
         enabled: false
       media:
-        enabled: false
+        enabled: true
+        type: pvc
+        existingClaim: media-storage
         mountPath: /media
       cache:
         enabled: false
