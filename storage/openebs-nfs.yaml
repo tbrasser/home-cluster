@@ -74,7 +74,8 @@ spec:
       #     memory: 200Mi
       # If set to false, containers created by the nfs provisioner will run without extra privileges.
       privileged: true
-      nodeSelector: {}
+      nodeSelector:
+        kubernetes.io/hostname: node-1
       tolerations: []
       affinity: {}
       healthCheck:
