@@ -4,4 +4,4 @@ namespace: networking
 resources:
   - namespace.yaml
   - keepalived-operator.yaml
-
+  - KeepalivedGroups.yaml
