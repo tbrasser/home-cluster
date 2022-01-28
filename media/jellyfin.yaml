@@ -33,16 +33,17 @@ spec:
             primary: true
             port: 80
             targetPort: 8096
+            protocol: HTTP
+
     ingress:
       main:
         enabled: true
         primary: true
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: web
         hosts:
           - host: media.linux.garden
             paths:
-                path: /
+              - path: "/"
                 pathType: Prefix
     persistence:
       config:
