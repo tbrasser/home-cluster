@@ -9,7 +9,7 @@ spec:
       chart: keepalived-operator
       sourceRef:
         kind: HelmRepository
-        name: redhat-cop
+        name: keepalived-operator
         namespace: flux-system
   interval: 5m
   install:
