@@ -4,3 +4,4 @@ metadata:
   name: keepalivedgroup
 spec:
   interface: eno1
+  image: quay.io/openshift/origin-keepalived-ipfailover:4.10.0
