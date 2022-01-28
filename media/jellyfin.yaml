@@ -35,7 +35,7 @@ spec:
             targetPort: 8096
     ingress:
       main:
-        enabled: false
+        enabled: true
     persistence:
       config:
         enabled: true
