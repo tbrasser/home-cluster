@@ -36,6 +36,12 @@ spec:
     ingress:
       main:
         enabled: true
+        primary: true
+        hosts:
+          - host: media.linux.garden
+            paths:
+                path: /
+                pathType: Prefix
     persistence:
       config:
         enabled: true
