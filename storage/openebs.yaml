@@ -47,7 +47,7 @@ spec:
     # Directory used by the OpenEBS to store debug information and so forth
     # that are generated in the course of running OpenEBS containers.
     varDirectoryPath:
-      baseDir: /var/openebs
+      baseDir: /var/snap/microk8s/common/var/openebs
     provisioner:
       enabled: true
       image: openebs/openebs-k8s-provisioner
@@ -63,7 +63,7 @@ spec:
       enableLeaderElection: true
       enableDeviceClass: true
       enableHostpathClass: true
-      basePath: /var/openebs/local
+      basePath: /var/snap/microk8s/common/var/openebs/local
       # This sets the number of times the provisioner should try
       # with a polling interval of 5 seconds, to get the Blockdevice
       # Name from a BlockDeviceClaim, before the BlockDeviceClaim
@@ -85,7 +85,7 @@ spec:
       image: openebs/node-disk-manager
       imageTag: "1.8.0"
       sparse:
-        path: /var/openebs/sparse
+        path: /var/snap/microk8s/common/var/openebs/sparse
         size: "10737418240"
         count: "0"
       filters:
@@ -178,6 +178,9 @@ spec:
         enabled: false
       rbac:
         create: true
+      cleanup:
+        image:
+          tag: latest
     nfs-provisioner:
       enabled: true
       nfsProvisioner:
