@@ -22,6 +22,23 @@ spec:
     ingressClass:
       enabled: true
       isDefaultClass: true
+    providers:
+      kubernetesCRD:
+        enabled: false
+      kubernetesIngress:
+        enabled: true
+    ports:
+      web:
+        port: 8000
+        expose: true
+        exposedPort: 80
+        protocol: TCP
+        # redirectTo: websecure
+      websecure:
+        port: 8443
+        expose: true
+        exposedPort: 443
+        protocol: TCP
     service:
       enabled: true
       type: LoadBalancer
@@ -29,3 +46,6 @@ spec:
         keepalived-operator.redhat-cop.io/keepalivedgroup: networking/keepalivedgroup
       externalIPs: 
         - 10.9.8.200
+    ingressRoute:
+      dashboard:
+        enabled: false
