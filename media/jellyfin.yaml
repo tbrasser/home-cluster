@@ -31,15 +31,14 @@ spec:
           http:
             enabled: true
             primary: true
-            port: 80
-            targetPort: 8096
+            port: 8096
             protocol: HTTP
-
     ingress:
       main:
         enabled: true
         primary: true
         annotations:
+        ingressClassName: traefik
         hosts:
           - host: media.linux.garden
             paths:
