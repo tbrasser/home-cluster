@@ -20,8 +20,8 @@ spec:
       enabled: true
       kind: DaemonSet
     ingressClass:
-      enabled: true
-      isDefaultClass: true
+      enabled: false
+      # isDefaultClass: true
     providers:
       kubernetesCRD:
         enabled: false
@@ -49,3 +49,14 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+    logs:
+      # Traefik logs concern everything that happens to Traefik itself (startup, configuration, events, shutdown, and so on).
+      general:
+        # By default, the logs use a text format (common), but you can
+        # also ask for the json format in the format option
+        # format: json
+        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+        level: ERROR
+      access:
+        # To enable access logs
+        enabled: true
